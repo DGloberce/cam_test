@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Включение камеры</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        video, iframe {
+            width: 45%;
+            max-width: 600px;
+            height: auto;
+            border: 2px solid #333;
+            border-radius: 10px;
+        }
+        iframe {
+            height: 1000px;
+            width: 1000px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Включение камеры</h1>
+    <video id="video" autoplay playsinline></video>
+    <br>
+    <button id="startCamera">Включить камеру</button>
+ <iframe id="webview" src="https://ff-c2c-front.trafficwave.kz/steps/80f27dc7-38d8-4d79-83be-32707c856d46"></iframe>
+
+    <script>
+        const videoElement = document.getElementById('video');
+        const startButton = document.getElementById('startCamera');
+
+        startButton.addEventListener('click', async () => {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                videoElement.srcObject = stream;
+            } catch (error) {
+                console.error('Ошибка при доступе к камере:', error);
+                alert('Не удалось включить камеру. Убедитесь, что она разрешена в браузере.');
+            }
+        });
+    </script>
+</body>
+</html>
